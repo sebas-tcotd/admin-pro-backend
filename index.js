@@ -14,13 +14,13 @@ dbConnection();
 
 // Rutas
 app.get('/', (req, res) => {
-    res.json({
-        ok: true,
-        msg: 'Hola mundo'
-    })
+  res.json({
+    ok: true,
+    msg: 'Hola mundo'
+  })
 });
 
 // Montar el servidor de express
 app.listen(process.env.PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
+  console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 });
