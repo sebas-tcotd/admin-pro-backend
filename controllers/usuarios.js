@@ -4,11 +4,23 @@ const Usuario = require('../models/usuario');
 const { generateJWT } = require("../helpers/jwt");
 
 const getUsuarios = async (req, res) => {
-  const usuarios = await Usuario.find({}, 'name email role google');
+  const from = Number(req.query.from) || 0;
+  const limit = Number(req.query.limit);
+
+  // Ejecuta esta colección de promesas simultáneamente
+  const [usuarios, total] = await Promise.all([
+    Usuario
+      .find({}, 'name email role google')
+      .skip(from)
+      .limit(limit),
+    Usuario.count()
+  ]);
+
 
   res.json({
     ok: true,
     usuarios,
+    total
   })
 }
 
