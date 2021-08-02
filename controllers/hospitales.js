@@ -32,11 +32,6 @@ const crearHospital = async (req, res = response) => {
       msg: 'Ocurrió un error inesperado. Hable con el administrador.'
     })
   }
-
-  return res.json({
-    ok: true,
-    msg: 'crear Hospitales'
-  })
 }
 
 const actualizarHospital = (req, res = response) => {
