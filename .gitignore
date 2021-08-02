@@ -1,2 +1,7 @@
 node_modules/
 .env
+
+### Uploaded images ###
+uploads/hospitales/*.*
+uploads/medicos/*.*
+uploads/usuarios/*.*
