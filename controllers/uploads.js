@@ -1,5 +1,9 @@
+const path = require('path');
+const fs = require('fs');
+
 const { response, json } = require("express");
 const { v4: uuidv4 } = require('uuid');
+const { updateImage } = require("../helpers/update-photo");
 
 const fileUpload = (req, res = response) => {
   const type = req.params.tipo;
@@ -53,6 +57,9 @@ const fileUpload = (req, res = response) => {
       });
     }
 
+    // Se actualiza la base de datos
+    updateImage(type, id, fileName);
+
     return res.json({
       ok: true,
       msg: 'Archivo subido exitosamente.',
@@ -61,4 +68,20 @@ const fileUpload = (req, res = response) => {
   });
 }
 
-module.exports = { fileUpload };
+const returnImage = (req, res = response) => {
+  const type = req.params.tipo;
+  const photo = req.params.photo;
+
+  const pathImg = path.join(__dirname, `../uploads/${type}/${photo}`);
+
+  // Imagen por defecto
+  if (fs.existsSync(pathImg)) {
+    res.sendFile(pathImg);
+  } else {
+    const pathImg = path.join(__dirname, `../uploads/no-image.jpg`);
+    res.sendFile(pathImg);
+  }
+
+}
+
+module.exports = { fileUpload, returnImage };
