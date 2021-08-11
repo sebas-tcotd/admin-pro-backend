@@ -57,7 +57,7 @@ const googleSignIn = async (req, res = response) => {
       usuario = new Usuario({
         name,
         email,
-        password: '',
+        password: '🎃',
         img: picture,
         google: true
       });
@@ -81,6 +81,7 @@ const googleSignIn = async (req, res = response) => {
       token
     });
   } catch (error) {
+    console.log(error)
     return res.status(401).json({
       ok: false,
       msg: 'El token no es correcto.'
